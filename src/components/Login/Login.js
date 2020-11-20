@@ -58,11 +58,11 @@ const Login = ({ closeLogin }) => {
                 <StyledFormParagraph isSmall isCentered>Kontynuując akceptujesz nasz Regulamin oraz Politykę Prywatności</StyledFormParagraph>
                 <Button type='submit'>Zaloguj się</Button>
             </Form>
-            <FormLink isBold href="/#">Nie masz konta? Zarejestruj się</FormLink>
+            <FormLink isBold href="#">Nie masz konta? Zarejestruj się</FormLink>
             <GroupedFormLinks>
-                <FormLink href="/#">Nie pamiętam hasła</FormLink>
+                <FormLink href="#">Nie pamiętam hasła</FormLink>
                 <Separator />
-                <FormLink href="/#">Nie pamiętam loginu</FormLink>
+                <FormLink href="#">Nie pamiętam loginu</FormLink>
             </GroupedFormLinks>
         </StyledWrapper>
     );

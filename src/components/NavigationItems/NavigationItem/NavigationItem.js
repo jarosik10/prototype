@@ -15,7 +15,7 @@ const StyledAnchor = styled.a`
 const NavigationItem = ({ children, handleOnClick }) => {
     return (
         <StyledWrapper>
-            <StyledAnchor onClick={handleOnClick} role='button' href='/#'>
+            <StyledAnchor onClick={handleOnClick} role='button' href='#'>
                 {children}
             </StyledAnchor>
         </StyledWrapper>
