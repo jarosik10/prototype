@@ -17,7 +17,7 @@ const StyledWrapper = styled.nav`
     box-shadow: 0px -1px 6px 0px rgba(0, 0, 0, 0.2);
 `;
 
-const MobileNavigation = ({ theme }) => {
+const MobileNavigation = ({ theme, openLogin }) => {
     return (
         <StyledWrapper>
             <NavigationItems>
@@ -45,7 +45,7 @@ const MobileNavigation = ({ theme }) => {
                     </NavigationIcon>
                     FAQ
                 </NavigationItem>
-                <NavigationItem>
+                <NavigationItem handleOnClick={openLogin}>
                     <NavigationIcon>
                         <User color={theme.colors.darkGray} size={24} />
                     </NavigationIcon>

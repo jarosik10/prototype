@@ -12,10 +12,10 @@ const StyledAnchor = styled.a`
     text-decoration: none;
 `;
 
-const NavigationItem = ({ children }) => {
+const NavigationItem = ({ children, handleOnClick }) => {
     return (
         <StyledWrapper>
-            <StyledAnchor role='button' href='/#'>
+            <StyledAnchor onClick={handleOnClick} role='button' href='/#'>
                 {children}
             </StyledAnchor>
         </StyledWrapper>
