@@ -4,7 +4,7 @@ const H2 = styled.h2`
     text-align: center;
     color: ${({ theme }) => theme.colors.blue};
     font-size: 45px;
-    margin: 70px 0 40px;
+    margin: 0  0 40px;
 `;
 
 export default H2;

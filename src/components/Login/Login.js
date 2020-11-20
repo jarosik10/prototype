@@ -17,7 +17,7 @@ const StyledWrapper = styled.div`
     left: 0;
     background-color: ${({ theme }) => theme.colors.white};
     width: 100%;
-    padding: 0 16px;
+    padding: 70px 16px 50px;
     height: 100vh;
     overflow-y: auto;
 `;
