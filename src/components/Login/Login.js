@@ -7,7 +7,7 @@ import Paragraph from '../UI/Paragraph/Paragraph';
 import Form from '../Form/Form';
 import FormField from '../Form/FormField/FormFIeld';
 import Button from '../UI/Button/Button';
-import ReturnButton from '../UI/ReturnButton/ReturnButton';
+import ReturnButton from '../UI/CloseButton/CloseButton';
 import FormLink from '../Form/FormLink/FormLink';
 import Separator from '../UI/Separator/Separator';
 
