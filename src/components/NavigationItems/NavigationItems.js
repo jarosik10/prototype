@@ -1,12 +1,9 @@
 import styled from 'styled-components';
 
 const NavigationItems = styled.ul`
-    margin: 8px;
-    padding: 0;
-    display: flex;
-    flex-grow: 1;
     list-style: none;
-    justify-content: space-around;
+    margin: 0;
+    padding: 0;
 `;
 
 export default NavigationItems;

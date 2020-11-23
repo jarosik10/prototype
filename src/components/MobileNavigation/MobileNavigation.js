@@ -17,41 +17,58 @@ const StyledWrapper = styled.nav`
     box-shadow: 0px -1px 6px 0px rgba(0, 0, 0, 0.2);
 `;
 
+const StyledNavigationItems = styled(NavigationItems)`
+    flex-grow: 1;
+    margin: 8px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    max-width: 500px;
+`;
+
+const StyledNavigationItem = styled(NavigationItem)`
+    :hover {
+         border-left: 1px solid ${({ theme }) => theme.colors.lightGray};
+         border-right: 1px solid ${({ theme }) => theme.colors.lightGray};
+    }
+`;
+
+
 const MobileNavigation = ({ theme, openLogin }) => {
     return (
         <StyledWrapper>
-            <NavigationItems>
-                <NavigationItem>
+            <StyledNavigationItems>
+                <StyledNavigationItem>
                     <NavigationIcon>
                         <Home color={theme.colors.darkGray} size={24} />
                     </NavigationIcon>
                     Home
-                </NavigationItem>
-                <NavigationItem>
+                </StyledNavigationItem>
+                <StyledNavigationItem>
                     <NavigationIcon>
                         <ShoppingBag color={theme.colors.darkGray} size={24} />
                     </NavigationIcon>
                     Produkty
-                </NavigationItem>
-                <NavigationItem>
+                </StyledNavigationItem>
+                <StyledNavigationItem>
                     <NavigationIcon>
                         <PlusCircle color={theme.colors.darkGray} size={24} />
                     </NavigationIcon>
                     Dodaj
-                </NavigationItem>
-                <NavigationItem>
+                </StyledNavigationItem>
+                <StyledNavigationItem>
                     <NavigationIcon>
                         <HelpCircle color={theme.colors.darkGray} size={24} />
                     </NavigationIcon>
                     FAQ
-                </NavigationItem>
-                <NavigationItem handleOnClick={openLogin}>
+                </StyledNavigationItem>
+                <StyledNavigationItem handleOnClick={openLogin}>
                     <NavigationIcon>
                         <User color={theme.colors.darkGray} size={24} />
                     </NavigationIcon>
                     Konto
-                </NavigationItem>
-            </NavigationItems>
+                </StyledNavigationItem>
+            </StyledNavigationItems>
         </StyledWrapper>
     );
 }
