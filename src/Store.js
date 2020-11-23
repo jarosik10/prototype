@@ -10,7 +10,7 @@ const Store = ({ children }) => {
           console.log(window.innerWidth)
         }
     
-        const debouncedHandleResize = debounce(handleResize, 100, { 'leading': false, 'trailing': true });
+        const debouncedHandleResize = debounce(handleResize, 70, { 'leading': false, 'trailing': true });
         window.addEventListener('resize', debouncedHandleResize);
     
         return () => { window.removeEventListener('resize', debouncedHandleResize) };

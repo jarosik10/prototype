@@ -11,16 +11,6 @@ import ReturnButton from '../UI/CloseButton/CloseButton';
 import FormLink from '../Form/FormLink/FormLink';
 import Separator from '../UI/Separator/Separator';
 
-const StyledWrapper = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: ${({ theme }) => theme.colors.white};
-    width: 100%;
-    padding: 70px 16px 50px;
-    height: 100vh;
-    overflow-y: auto;
-`;
 
 const StyledFormParagraph = styled(Paragraph)`
     margin: 44px 0 16px;
@@ -49,7 +39,7 @@ const Login = ({ closeLogin }) => {
     });
 
     return (
-        <StyledWrapper>
+        <>
             <ReturnButton handleOnClick={closeLogin} />
             <H2>Zaloguj się</H2>
             <Form onSubmit={formik.handleSubmit}>
@@ -64,7 +54,7 @@ const Login = ({ closeLogin }) => {
                 <Separator />
                 <FormLink href="#">Nie pamiętam loginu</FormLink>
             </GroupedFormLinks>
-        </StyledWrapper>
+        </>
     );
 }
 

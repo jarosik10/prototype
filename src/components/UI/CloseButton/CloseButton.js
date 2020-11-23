@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled, { withTheme } from 'styled-components';
-import { ChevronLeft } from "react-feather";
+import { Context } from '../../../Store';
+import { ChevronLeft, X } from "react-feather";
 
 const StyledReturnButton = styled.button`
     position: absolute;
@@ -17,9 +18,10 @@ const StyledReturnButton = styled.button`
 `;
 
 const ReturnButton = ({ handleOnClick, theme }) => {
+    const isMobile = useContext(Context);
     return (
         <StyledReturnButton onClick={handleOnClick}>
-            <ChevronLeft color={theme.colors.darkGray} size={36} />
+            {isMobile ? <ChevronLeft color={theme.colors.darkGray} size={36} /> : <X color={theme.colors.darkGray} size={36} />}
         </StyledReturnButton>
     );
 }

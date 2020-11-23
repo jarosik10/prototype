@@ -7,6 +7,8 @@ import SiteTitle from './components/SiteTitle/SiteTitle';
 import MobileNavigation from './components/MobileNavigation/MobileNavigation';
 import Navigation from './components/Navigation/Navigation';
 import Login from './components/Login/Login';
+import Modal from './components/Modal/Modal';
+import Backdrop from './components/Backdrop/Backdrop';
 
 function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -23,13 +25,21 @@ function App() {
     setShowMobileNavigation(true);
   }
 
+  // const loginScreen = isMobile ? <Login closeLogin={closeLogin} /> : <Modal><Login closeLogin={closeLogin} /></Modal>;
+
   return (
     <Layout>
       <Header>
         <SiteTitle>Prototype</SiteTitle>
         {!isMobile && <Navigation openLogin={openLogin} />}
       </Header>
-      {showLoginModal && <Login closeLogin={closeLogin} />}
+      {showLoginModal &&
+        <>
+          <Backdrop />
+          <Modal>
+            <Login closeLogin={closeLogin} />
+          </Modal>
+        </>}
       {isMobile && showMobileNavigation && <MobileNavigation openLogin={openLogin} />}
     </Layout>
   );
