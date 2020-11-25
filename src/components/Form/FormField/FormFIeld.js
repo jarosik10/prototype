@@ -4,6 +4,7 @@ import { useField } from 'formik';
 
 import Input from '../../UI/Input/Input';
 import Label from '../../UI/Label/Label';
+import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 
 const StyledFormField = styled.div`
     position: relative;
@@ -15,7 +16,8 @@ const StyledFormField = styled.div`
 
 const FormField = ({ label, id, ...props }) => {
     const [isFocused, setIsFocused] = useState(false);
-    const [field] = useField(props);
+    const [field, meta] = useField(props);
+    const errorText = meta.error && meta.touched ? meta.error : "";
 
     const handleOnFocus = (event) => {
         setIsFocused(true);
@@ -34,7 +36,8 @@ const FormField = ({ label, id, ...props }) => {
                 htmlFor={id}>
                 {label}
             </Label>
-            <Input id={id} {...props} {...field} onBlur={(event) => handleOnBlur(event)} onFocus={handleOnFocus}/>
+            <Input id={id} {...props} {...field} onBlur={(event) => handleOnBlur(event)} onFocus={handleOnFocus} />
+            {!!errorText && <ErrorMessage error={errorText} />}
         </StyledFormField>);
 }
 

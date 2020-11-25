@@ -11,6 +11,7 @@ const StyledReturnButton = styled.button`
     background: none;
     border: none;
     padding: 0;
+    cursor: pointer;
     
     svg {
         display: block;

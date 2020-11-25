@@ -9,6 +9,7 @@ const Button = styled.button`
     border-radius: 24px;
     background-color: ${({ theme }) => theme.colors.blue};
     color: ${({ theme }) => theme.colors.white};
+    cursor: pointer;
 `;
 
 export default Button;
