@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useReducer } from 'react';
 import { Context } from './Store';
 
 import Layout from './components/Layout/Layout';
@@ -7,40 +7,85 @@ import SiteTitle from './components/SiteTitle/SiteTitle';
 import MobileNavigation from './components/MobileNavigation/MobileNavigation';
 import Navigation from './components/Navigation/Navigation';
 import Login from './components/Login/Login';
+import Registration from './components/Registration/Registration';
 import Modal from './components/Modal/Modal';
 import Backdrop from './components/Backdrop/Backdrop';
 
+const modalTypes = {
+  login: 'LOGIN',
+  registration: 'REGISTRATION',
+}
+
+const actionTypes = {
+  SHOW_MODAL: 'SHOW_MODAL',
+  HIDE_MODAL: 'HIDE_MODAL',
+}
+
+const initialState = {
+  showModal: false,
+  modalType: '',
+  showMobileNavigation: true,
+}
+
+const showModal = (state, {modalType}) => {
+  return {
+    ...state,
+    showModal: true,
+    modalType: modalType,
+    showMobileNavigation: false,
+  }
+}
+const hideModal = (state, action) => {
+  return {
+    ...state,
+    showModal: false,
+    modalType: '',
+    showMobileNavigation: true,
+  }
+}
+
+const modalsReducer = (state, action) => {
+  switch(action.type) {
+    case 'SHOW_MODAL':
+      return showModal(state, action);
+    case 'HIDE_MODAL':
+      return hideModal(state, action);
+    default:
+      return state;
+  }
+}
+
 function App() {
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showMobileNavigation, setShowMobileNavigation] = useState(true);
   const isMobile = useContext(Context);
+  const [state, dispatch] = useReducer(modalsReducer, initialState);
 
   const openLogin = () => {
-    setShowLoginModal(true);
-    setShowMobileNavigation(false);
+    dispatch({type: actionTypes.SHOW_MODAL, modalType: modalTypes.login});
   }
 
-  const closeLogin = () => {
-    setShowLoginModal(false);
-    setShowMobileNavigation(true);
+  const openRegistration = () => {
+    dispatch({type: actionTypes.SHOW_MODAL, modalType: modalTypes.registration});
   }
-
-  // const loginScreen = isMobile ? <Login closeLogin={closeLogin} /> : <Modal><Login closeLogin={closeLogin} /></Modal>;
+  
+  const closeModal = () => {
+    dispatch({type: actionTypes.HIDE_MODAL});
+  }
 
   return (
     <Layout>
       <Header>
         <SiteTitle>Prototype</SiteTitle>
-        {!isMobile && <Navigation openLogin={openLogin} />}
+        {!isMobile && <Navigation openRegistration={openRegistration} openLogin={openLogin} />}
       </Header>
-      {showLoginModal &&
+      {state.showModal &&
         <>
           <Backdrop />
           <Modal>
-            <Login closeLogin={closeLogin} />
+            {state.modalType === modalTypes.login ? <Login closeLogin={closeModal} openRegistration={openRegistration}/> :
+            state.modalType === modalTypes.registration ? <Registration closeRegistration={closeModal} openLogin={openLogin}/> : null}
           </Modal>
         </>}
-      {isMobile && showMobileNavigation && <MobileNavigation openLogin={openLogin} />}
+      {isMobile && state.showMobileNavigation && <MobileNavigation openLogin={openLogin} />}
     </Layout>
   );
 }

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useField } from 'formik';
 
 import Input from '../../UI/Input/Input';
 import Label from '../../UI/Label/Label';
+import Select from '../../UI/Select/Select';
 import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 
 const StyledFormField = styled.div`
@@ -14,11 +15,11 @@ const StyledFormField = styled.div`
     margin-bottom: 35px;
 `;
 
-const FormField = ({ label, id, ...props }) => {
+const FormField = ({ label, type, id, ...props }) => {
     const [isFocused, setIsFocused] = useState(false);
     const [field, meta] = useField(props);
     const errorText = meta.error && meta.touched ? meta.error : "";
-
+    const isError = !!errorText;
     const handleOnFocus = (event) => {
         setIsFocused(true);
     }
@@ -33,11 +34,12 @@ const FormField = ({ label, id, ...props }) => {
             <Label
                 isActive={isFocused}
                 isInputFilled={field.value.length > 0}
-                htmlFor={id}>
+                htmlFor={id}
+                >
                 {label}
             </Label>
-            <Input id={id} {...props} {...field} onBlur={(event) => handleOnBlur(event)} onFocus={handleOnFocus} />
-            {!!errorText && <ErrorMessage error={errorText} />}
+            <Input type={type} id={id} {...props} {...field} isError={isError} onBlur={(event) => handleOnBlur(event)} onFocus={handleOnFocus} />
+            {isError && <ErrorMessage isAbsolute error={errorText} />}
         </StyledFormField>);
 }
 

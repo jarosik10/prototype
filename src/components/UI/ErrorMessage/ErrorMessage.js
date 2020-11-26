@@ -2,20 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledErrorMessage = styled.div`
-    position: absolute;
-    top: 100%;
-    left: ${({isCentered}) => isCentered ? '0' : '33px'};
-    ${({isCentered}) => isCentered ? 'right: 0' : null};
-    margin-top: 6px;
-    font-size: ${({isBig}) => isBig ? '16px' : '13px'};
-    font-weight: bold;
-    color: ${({theme}) => theme.colors.red};
-    text-align: ${({isCentered}) => isCentered ? 'center' : 'left'}; 
-
-
-    /* position: ${({isAbsolute}) => isAbsolute ? 'absolute' : 'static'};
-    margin-top: 6px;
-    font-size: ${({isBig}) => isBig ? '16px' : '13px'};
+    position: ${({isAbsolute}) => isAbsolute ? 'absolute' : 'static'};
+    margin-top: 3px;
+    font-size: ${({isBig}) => isBig ? '16px' : '12px'};
     font-weight: bold;
     color: ${({theme}) => theme.colors.red};
     text-align: ${({isCentered}) => isCentered ? 'center' : 'left'};
@@ -23,7 +12,7 @@ const StyledErrorMessage = styled.div`
         top: 100%;
         left: ${isCentered ? '50%' : '33px'};
         transform: ${isCentered ? 'translateX(-50%)' : ''};
-    `}; */
+    `};
 `;
 
 const ErrorMessage = ({error, isAbsolute, isBig, isCentered}) => {

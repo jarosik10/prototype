@@ -15,7 +15,7 @@ const StyledNavigationItems = styled(NavigationItems)`
     align-items: center;
 `;
 
-const Navigation = ({ theme, openLogin }) => {
+const Navigation = ({ theme, openLogin, openRegistration }) => {
     return (
         <StyledWrapper>
             <StyledNavigationItems>
@@ -36,7 +36,7 @@ const Navigation = ({ theme, openLogin }) => {
                 <NavigationItem handleOnClick={openLogin}>
                     Zaloguj się
                 </NavigationItem>
-                <NavigationItem>
+                <NavigationItem handleOnClick={openRegistration}>
                     Załóż kotno
                 </NavigationItem>
             </StyledNavigationItems>

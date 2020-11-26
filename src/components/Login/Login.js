@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Formik, useFormik } from 'formik';
+import { Formik } from 'formik';
 import * as yup from 'yup';
 
 import H2 from '../UI/H2/H2';
 import Paragraph from '../UI/Paragraph/Paragraph';
 import Form from '../Form/Form';
-import FormField from '../Form/FormField/FormField';
+import InputField from '../Form/InputField/InputField';
 import ErrorMessage from '../UI/ErrorMessage/ErrorMessage';
 import Button from '../UI/Button/Button';
 import ReturnButton from '../UI/CloseButton/CloseButton';
@@ -15,7 +15,7 @@ import Separator from '../UI/Separator/Separator';
 
 
 const StyledFormParagraph = styled(Paragraph)`
-    margin: 44px 0 16px;
+    margin: 15px 0 0;
 `;
 
 const GroupedFormLinks = styled.div`
@@ -25,17 +25,11 @@ const GroupedFormLinks = styled.div`
     margin-top: 25px;
 
     ${FormLink} {
-        margin-top: 0;
+        margin: 0;
     }
 `;
 
-const ErrorWrapper = styled.div`
-    position: relative;
-    height: 1px;
-    margin-top: -1px;
-`;
-
-const Login = ({ closeLogin }) => {
+const Login = ({ closeLogin, openRegistration }) => {
     const [formError, setFormError] = useState('');
 
     const validationSchema = yup.object({
@@ -61,13 +55,9 @@ const Login = ({ closeLogin }) => {
                 validationSchema={validationSchema}>
                 {({ handleSubmit, errors, values, isSubmitting }) => (
                     <Form onSubmit={handleSubmit}>
-                        <FormField type='text' name='login' id='login' label='Login' />
-                        <FormField type='password' name='password' id='password' label='Hasło' />
-                        {formError &&
-                            <ErrorWrapper>
-                                <ErrorMessage error={formError} isBig isCentered />
-                            </ErrorWrapper>
-                            }
+                        <InputField type='text' name='login' id='login' label='Login' />
+                        <InputField type='password' name='password' id='password' label='Hasło' />
+                        {formError && <ErrorMessage error={formError} isBig isCentered />}
                         <StyledFormParagraph isSmall isCentered>Kontynuując akceptujesz nasz Regulamin oraz Politykę Prywatności</StyledFormParagraph>
                         <Button type='submit' disabled={isSubmitting}>Zaloguj się</Button>
                         {/* <pre>{JSON.stringify(values, null, 2)}</pre>
@@ -75,7 +65,7 @@ const Login = ({ closeLogin }) => {
                     </Form>
                 )}
             </Formik>
-            <FormLink isBold href="#">Nie masz konta? Zarejestruj się</FormLink>
+            <FormLink isBold href="#" type='button' isCenterd onClick={openRegistration}>Nie masz konta? Zarejestruj się</FormLink>
             <GroupedFormLinks>
                 <FormLink href="#">Nie pamiętam hasła</FormLink>
                 <Separator />

@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 
 const FormLink = styled.a`
-    display: ${({ isInline }) => isInline ? 'inline-block' : 'block'};
+    display: block;
+    /* display: ${({ isInline }) => isInline ? 'inline-block' : 'block'}; */
     font-size: 16px;
     color: ${({ theme }) => theme.colors.darkGray};
     font-weight: ${({ isBold }) => isBold ? 'bold' : 'normal'};
     text-decoration: none;
-    margin-top: 25px;
+    margin: ${({isCenterd}) => isCenterd ? '25px auto 0' : '25px 0 0' };
+    /* margin: 25px 0 0; */
     text-align: center;
 `;
 
