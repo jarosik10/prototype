@@ -50,6 +50,7 @@ const Login = ({ closeLogin, openRegistration }) => {
             <H2>Zaloguj się</H2>
             <Formik
                 initialValues={{ login: '', password: '' }} onSubmit={(values, { setSubmitting }) => {
+                    console.log('Submitting');
                     setSubmitting(true);
                     // Async call
                     setTimeout(() => {

@@ -13,6 +13,7 @@ import ReturnButton from '../UI/CloseButton/CloseButton';
 import FormLink from '../Form/FormLink/FormLink';
 import SelectField from '../Form/SelectField/SelectField';
 import Select from '../UI/Select/Select';
+// import HelperWindow from '../HelperWindow/HelperWindow';
 
 const StyledWrapper = styled.div`
     text-align: center;
@@ -27,7 +28,7 @@ const StyledReCAPTCHA = styled(ReCAPTCHA)`
     margin: 0 auto;
     transform-origin: center;
     
-    ${({theme}) => theme.media.smallTablet} {
+    ${({ theme }) => theme.media.smallTablet} {
         transform: unset
     }
 `
@@ -45,14 +46,17 @@ const InlineFields = styled.div`
     }
 `;
 
-const StyledGroupLabel = styled.p`
+const StyledGroupLabel = styled.div`
+    z-index: ${({ theme }) => theme.zindex.level9};
     flex: 0 0 auto;
     font-size: 18px;
     margin: 0 auto 12px;
     color: ${({ theme }) => theme.colors.darkGray};
+    display: flex;
+    align-items: center;
 `;
 
-const Registration = ({ closeRegistration, openLogin }) => {
+const Registration = ({ closeRegistration, openLogin, theme }) => {
     const validationSchema = yup.object({
         login: yup.string().required('Pole obowiązkowe!').min(6, 'Login musi składać się z co najmniej 6 znaków!'),
         email: yup.string().email('Niepoprawny email!').required('Pole obowiązkowe!'),
@@ -111,7 +115,12 @@ const Registration = ({ closeRegistration, openLogin }) => {
                         <InputField type='text' name='email' id='email' label='Email' />
                         <InputField type='password' name='password' id='password' label='Hasło' />
                         <InputField type='password' name='repeatPassword' id='repeatPassword' label='Powtórz hasło' />
-                        <StyledGroupLabel>Data urodzenia</StyledGroupLabel>
+                        <StyledGroupLabel>
+                            Data urodzenia
+                            {/* <HelperWindow>
+                                <p>Potrzebujemy daty twoich urodzin, ponieważ niektóre produkty oferowane w naszym serwisie dostępne są od lat 16 lub 18.</p>
+                            </HelperWindow> */}
+                        </StyledGroupLabel>
                         <InlineFields>
                             <SelectField type='select' name='birthDate.day' id='day' value=''>
                                 <option value='' disabled>Dzień</option>
