@@ -10,6 +10,7 @@ const Button = styled.button`
     background-color: ${({ theme }) => theme.colors.blue};
     color: ${({ theme }) => theme.colors.white};
     cursor: pointer;
+    flex: 0 0 auto;
 `;
 
 export default Button;

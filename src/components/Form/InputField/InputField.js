@@ -13,6 +13,7 @@ const StyledFormField = styled.div`
     flex-direction: column;
     justify-content: center;
     margin-bottom: 35px;
+    flex: 0 0 auto;
 `;
 
 const FormField = ({ label, type, id, ...props }) => {

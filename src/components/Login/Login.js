@@ -13,6 +13,13 @@ import ReturnButton from '../UI/CloseButton/CloseButton';
 import FormLink from '../Form/FormLink/FormLink';
 import Separator from '../UI/Separator/Separator';
 
+const StyledWrapper = styled.div`
+    text-align: center;
+    padding: 70px 16px 50px;
+    ${({ theme }) => theme.media.tablet} {
+        padding: 70px 50px;
+    }
+`;
 
 const StyledFormParagraph = styled(Paragraph)`
     margin: 15px 0 0;
@@ -38,7 +45,7 @@ const Login = ({ closeLogin, openRegistration }) => {
     });
 
     return (
-        <>
+        <StyledWrapper>
             <ReturnButton handleOnClick={closeLogin} />
             <H2>Zaloguj się</H2>
             <Formik
@@ -71,7 +78,7 @@ const Login = ({ closeLogin, openRegistration }) => {
                 <Separator />
                 <FormLink href="#">Nie pamiętam loginu</FormLink>
             </GroupedFormLinks>
-        </>
+        </StyledWrapper>
     );
 }
 

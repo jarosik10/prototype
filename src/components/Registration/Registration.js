@@ -14,11 +14,26 @@ import FormLink from '../Form/FormLink/FormLink';
 import SelectField from '../Form/SelectField/SelectField';
 import Select from '../UI/Select/Select';
 
+const StyledWrapper = styled.div`
+    text-align: center;
+    padding: 70px 16px 50px;
+    ${({ theme }) => theme.media.tablet} {
+        padding: 70px 50px;
+    }
+`;
+
 const StyledReCAPTCHA = styled(ReCAPTCHA)`
+    transform:scale(0.9);
     margin: 0 auto;
+    transform-origin: center;
+    
+    ${({theme}) => theme.media.smallTablet} {
+        transform: unset
+    }
 `
 
 const InlineFields = styled.div`
+    flex: 0 0 auto;
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -31,6 +46,7 @@ const InlineFields = styled.div`
 `;
 
 const StyledGroupLabel = styled.p`
+    flex: 0 0 auto;
     font-size: 18px;
     margin: 0 auto 12px;
     color: ${({ theme }) => theme.colors.darkGray};
@@ -75,7 +91,7 @@ const Registration = ({ closeRegistration, openLogin }) => {
 
 
     return (
-        <>
+        <StyledWrapper>
             <ReturnButton handleOnClick={closeRegistration} />
             <H2>Załóż konto</H2>
             <Formik
@@ -123,7 +139,7 @@ const Registration = ({ closeRegistration, openLogin }) => {
                 )}
             </Formik>
             <FormLink onClick={openLogin} isBold isCenterd href="#">Masz już konto? Zaloguj się!</FormLink>
-        </>
+        </StyledWrapper>
     );
 }
 

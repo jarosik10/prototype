@@ -7,7 +7,7 @@ const Separator = styled.span`
     width: 5px;
     height: 5px;
     border-radius: 5px;
-    flex-shrink: 0;
+    flex: 0 0 auto;
     background-color: ${({ theme }) => theme.colors.darkGray};
 `;
 
