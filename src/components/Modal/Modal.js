@@ -6,11 +6,8 @@ const StyledWrapper = styled.div`
     top: 0;
     bottom: 0;
     left: 0;
-    /* display: flex;
-    flex-direction: column; */
     background-color: ${({ theme }) => theme.colors.white};
     width: 100%;
-    /* padding: 70px 16px 50px; */
     overflow-y: auto;
 
     ${({ theme }) => theme.media.tablet} {
@@ -21,17 +18,30 @@ const StyledWrapper = styled.div`
         left: 50%;
         transform: translateY(-50%) translateX(-50%);
         margin: auto;
-        /* padding: 70px 50px; */
         box-shadow: 0 0 6px 1px rgba(0, 0, 0, .3);
-        border-radius: 5%;
+        border-radius: 35px;
         overflow-y: initial;
+    }
+`;
+
+const StyledContentContainer = styled.div`
+    text-align: center;
+    padding: 70px 16px 50px;
+    margin: 0 auto;
+    max-width: 550px;
+  
+    ${({ theme }) => theme.media.tablet} {
+        padding: 70px 50px;
+        min-width: 550px;
     }
 `;
 
 const Modal = ({ children }) => {
     return (
         <StyledWrapper>
-            {children}
+            <StyledContentContainer>
+                {children}
+            </StyledContentContainer>
         </StyledWrapper>
     );
 }

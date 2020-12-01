@@ -6,14 +6,16 @@ import Header from './components/Header/Header';
 import SiteTitle from './components/SiteTitle/SiteTitle';
 import MobileNavigation from './components/MobileNavigation/MobileNavigation';
 import Navigation from './components/Navigation/Navigation';
-import Login from './components/Login/Login';
-import Registration from './components/Registration/Registration';
+import Login from './containers/Login/Login';
+import Registration from './containers/Registration/Registration';
+import RecoverPassword from './containers/RecoverPassword/RecoverPassword';
 import Modal from './components/Modal/Modal';
 import Backdrop from './components/Backdrop/Backdrop';
 
 const modalTypes = {
   login: 'LOGIN',
   registration: 'REGISTRATION',
+  recoverPassword: 'RECOVER_PASSWORD',
 }
 
 const actionTypes = {
@@ -27,7 +29,7 @@ const initialState = {
   showMobileNavigation: true,
 }
 
-const showModal = (state, {modalType}) => {
+const showModal = (state, { modalType }) => {
   return {
     ...state,
     showModal: true,
@@ -45,7 +47,7 @@ const hideModal = (state, action) => {
 }
 
 const modalsReducer = (state, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case 'SHOW_MODAL':
       return showModal(state, action);
     case 'HIDE_MODAL':
@@ -60,15 +62,19 @@ function App() {
   const [state, dispatch] = useReducer(modalsReducer, initialState);
 
   const openLogin = () => {
-    dispatch({type: actionTypes.SHOW_MODAL, modalType: modalTypes.login});
+    dispatch({ type: actionTypes.SHOW_MODAL, modalType: modalTypes.login });
   }
 
   const openRegistration = () => {
-    dispatch({type: actionTypes.SHOW_MODAL, modalType: modalTypes.registration});
+    dispatch({ type: actionTypes.SHOW_MODAL, modalType: modalTypes.registration });
   }
-  
+
+  const openRecoverPassword = () => {
+    dispatch({ type: actionTypes.SHOW_MODAL, modalType: modalTypes.recoverPassword });
+  }
+
   const closeModal = () => {
-    dispatch({type: actionTypes.HIDE_MODAL});
+    dispatch({ type: actionTypes.HIDE_MODAL });
   }
 
   return (
@@ -81,8 +87,10 @@ function App() {
         <>
           <Backdrop />
           <Modal>
-            {state.modalType === modalTypes.login ? <Login closeLogin={closeModal} openRegistration={openRegistration}/> :
-            state.modalType === modalTypes.registration ? <Registration closeRegistration={closeModal} openLogin={openLogin}/> : null}
+            {state.modalType === modalTypes.login ? <Login closeLogin={closeModal} openRegistration={openRegistration} openRecoverPassword={openRecoverPassword} /> :
+              state.modalType === modalTypes.registration ? <Registration closeRegistration={closeModal} openLogin={openLogin} /> :
+                state.modalType === modalTypes.recoverPassword ? <RecoverPassword closeRecoverPassword={closeModal} openLogin={openLogin} /> : null
+            }
           </Modal>
         </>}
       {isMobile && state.showMobileNavigation && <MobileNavigation openLogin={openLogin} />}

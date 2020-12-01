@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 const Paragraph = styled.p`
-    font-size: ${({isSmall}) => isSmall ? '12px' : '16px'};
-    text-align: ${({isCentered}) => isCentered ? 'center' : 'inital'};
+    font-size: ${({isSmall, isBig}) => isSmall ? '12px' : isBig ? '22px' : '16px'};
+    text-align: ${({isCentered}) => isCentered ? 'center' : 'left'};
+    font-weight: ${({isBold}) => isBold ? 'bold' : 'regular'};
     color: ${({ theme }) => theme.colors.darkGray};
 `;
 
