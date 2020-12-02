@@ -9,6 +9,7 @@ import Navigation from './components/Navigation/Navigation';
 import Login from './containers/Login/Login';
 import Registration from './containers/Registration/Registration';
 import RecoverPassword from './containers/RecoverPassword/RecoverPassword';
+import RecoverLogin from './containers/RecoverLogin/RecoverLogin';
 import Modal from './components/Modal/Modal';
 import Backdrop from './components/Backdrop/Backdrop';
 
@@ -16,6 +17,7 @@ const modalTypes = {
   login: 'LOGIN',
   registration: 'REGISTRATION',
   recoverPassword: 'RECOVER_PASSWORD',
+  recoverLogin: 'RECOVER_LOGIN',
 }
 
 const actionTypes = {
@@ -73,6 +75,10 @@ function App() {
     dispatch({ type: actionTypes.SHOW_MODAL, modalType: modalTypes.recoverPassword });
   }
 
+  const openRecoverLogin = () => {
+    dispatch({ type: actionTypes.SHOW_MODAL, modalType: modalTypes.recoverLogin });
+  }
+
   const closeModal = () => {
     dispatch({ type: actionTypes.HIDE_MODAL });
   }
@@ -87,9 +93,10 @@ function App() {
         <>
           <Backdrop />
           <Modal>
-            {state.modalType === modalTypes.login ? <Login closeLogin={closeModal} openRegistration={openRegistration} openRecoverPassword={openRecoverPassword} /> :
+            {state.modalType === modalTypes.login ? <Login closeLogin={closeModal} openRegistration={openRegistration} openRecoverPassword={openRecoverPassword} openRecoverLogin={openRecoverLogin} /> :
               state.modalType === modalTypes.registration ? <Registration closeRegistration={closeModal} openLogin={openLogin} /> :
-                state.modalType === modalTypes.recoverPassword ? <RecoverPassword closeRecoverPassword={closeModal} openLogin={openLogin} /> : null
+                state.modalType === modalTypes.recoverPassword ? <RecoverPassword closeRecoverPassword={closeModal} openLogin={openLogin} /> :
+                  state.modalType === modalTypes.recoverLogin ? <RecoverLogin closeRecoverLogin={closeModal} openLogin={openLogin} /> : null
             }
           </Modal>
         </>}

@@ -14,16 +14,16 @@ const StyledFormParagraph = styled(Paragraph)`
     margin: 0 0 70px;
 `;
 
-const RecoverPassword = ({ closeRecoverPassword, openLogin }) => {
+const RecoverPassword = ({ closeRecoverLogin, openLogin }) => {
     const validationSchema = yup.object({
         email: yup.string().required('Pole obowiązkowe!'),
     });
 
     return (
         <>
-            <ReturnButton handleOnClick={closeRecoverPassword} />
+            <ReturnButton handleOnClick={closeRecoverLogin} />
             <StyledFormParagraph isBig isCentered isBold>
-                Podaj email, który był użyty podczas zakładania Twojego konta. Wyślemy na niego jednorazowe hasło oraz dalsze wskazówki.
+                Podaj email, który był użyty podczas zakładania Twojego konta. Wyślemy na niego zapomniany login.
             </StyledFormParagraph>
             <Formik
                 initialValues={{ email: '' }} onSubmit={(values, { setSubmitting }) => {

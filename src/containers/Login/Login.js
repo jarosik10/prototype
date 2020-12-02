@@ -36,7 +36,7 @@ const GroupedFormLinks = styled.div`
     }
 `;
 
-const Login = ({ closeLogin, openRegistration, openRecoverPassword }) => {
+const Login = ({ closeLogin, openRegistration, openRecoverPassword, openRecoverLogin }) => {
     const [formError, setFormError] = useState('');
 
     const validationSchema = yup.object({
@@ -77,7 +77,7 @@ const Login = ({ closeLogin, openRegistration, openRecoverPassword }) => {
             <GroupedFormLinks>
                 <FormLink href="#" type='button' onClick={openRecoverPassword}>Nie pamiętam hasła</FormLink>
                 <Separator />
-                <FormLink href="#">Nie pamiętam loginu</FormLink>
+                <FormLink href="#" type='button' onClick={openRecoverLogin}>Nie pamiętam loginu</FormLink>
             </GroupedFormLinks>
         </>
     );
