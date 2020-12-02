@@ -16,7 +16,7 @@ const StyledFormParagraph = styled(Paragraph)`
 
 const RecoverPassword = ({ closeRecoverLogin, openLogin }) => {
     const validationSchema = yup.object({
-        email: yup.string().required('Pole obowiązkowe!'),
+        email: yup.string().email('Niepoprawny email!').required('Pole obowiązkowe!'),
     });
 
     return (
