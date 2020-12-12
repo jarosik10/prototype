@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -13,6 +13,7 @@ import ReturnButton from '../../components/UI/CloseButton/CloseButton';
 import FormLink from '../../components/Form/FormLink/FormLink';
 import SelectField from '../../components/Form/SelectField/SelectField';
 import Select from '../../components/UI/Select/Select';
+import PasswordRequirements from '../../components/PasswordRequirements/PasswordRequirements';
 // import HelperWindow from '../HelperWindow/HelperWindow';
 
 const StyledReCAPTCHA = styled(ReCAPTCHA)`
@@ -48,17 +49,57 @@ const StyledGroupLabel = styled.div`
     align-items: center;
 `;
 
+const passwordRequirementsInitialState = {
+    minLength: false,
+    hasLowercase: false,
+    hasUppercase: false,
+    hasDigit: false,
+    hasSpecialChar: false,
+}
+
+const passwordRequirementsRegex = {
+    minLength: new RegExp(/(?=.{8,})/),
+    hasLowercase: new RegExp(/(?=.*[a-z])/),
+    hasUppercase: new RegExp(/(?=.*[A-Z])/),
+    hasDigit: new RegExp(/(?=.*\d)/),
+    hasSpecialChar: new RegExp(/(?=.*[-+_!@#$%^&*.,?])/),
+}
+
 const Registration = ({ closeRegistration, openLogin, theme }) => {
+    const [showPasswordRequirements, setShowPasswordRequirements] = useState(false);
+    const [passwordRequirements, setPasswordRequirements] = useState(passwordRequirementsInitialState);
+
+    const checkPasswordRequirements = (password) => {
+        let newState = { ...passwordRequirements };
+        Object.keys(passwordRequirements).forEach(requirement => {
+            newState = {
+                ...newState,
+                [requirement]: passwordRequirementsRegex[requirement].test(password),
+            }
+        });
+
+        return newState;
+    }
+
     const validationSchema = yup.object({
         login: yup.string().required('Pole obowiązkowe!').min(6, 'Login musi składać się z co najmniej 6 znaków!'),
         email: yup.string().email('Niepoprawny email!').required('Pole obowiązkowe!'),
-        password: yup.string().required('Pole obowiązkowe!')
-            .min(8, 'Hasło musi składać się z co najmniej 8 znaków!')
-            .matches(/(?=.*[A-Z])/, 'Hasło musi posiadać co najmniej jedną dużą literę!')
-            .matches(/(?=.*[a-z])/, 'Hasło musi posiadać co najmniej jedną małą literę!')
-            .matches(/(?=.*\d)/, 'Hasło musi posiadać co najmniej jedną cyfrę!')
-            .matches(/(?=.*[-+_!@#$%^&*.,?])/, 'Hasło musi posiadać co najmniej jednen znak specjalny!'),
-        repeatPassword: yup.string().oneOf([yup.ref('password'), null], 'Podane hasła nie są takie same!'),
+        password: yup.string().required('Pole obowiązkowe!').test('meets-requiremenst', 'Nie spełnia wymagań!', (value, context) => {
+            if (!value) {
+                setPasswordRequirements(passwordRequirementsInitialState);
+                return false;
+            }
+
+            const passwordRequirements = checkPasswordRequirements(value);
+            const isValid = Object.keys(passwordRequirements).reduce((isValidAccumulator, key) => {
+                const isRequirementmMet = passwordRequirements[key];
+                return isRequirementmMet && isValidAccumulator;
+            }, true)
+
+            setPasswordRequirements(passwordRequirements);
+            return isValid;
+        }),
+        repeatPassword: yup.string().required('Pole obowiązkowe!').oneOf([yup.ref('password'), null], 'Podane hasła nie są takie same!'),
         birthDate: yup.object({
             day: yup.number(),
             month: yup.number(),
@@ -85,7 +126,6 @@ const Registration = ({ closeRegistration, openLogin, theme }) => {
         yearSelectOptions.push(<option key={year} value={year}>{year}</option>);
     }
 
-
     return (
         <>
             <ReturnButton handleOnClick={closeRegistration} />
@@ -105,7 +145,8 @@ const Registration = ({ closeRegistration, openLogin, theme }) => {
                     <Form onSubmit={handleSubmit}>
                         <InputField type='text' name='login' id='login' label='Login' />
                         <InputField type='text' name='email' id='email' label='Email' />
-                        <InputField type='password' name='password' id='password' label='Hasło' />
+                        <InputField setShowPasswordRequirements={setShowPasswordRequirements} type='password' name='password' id='password' label='Hasło' />
+                        {showPasswordRequirements && <PasswordRequirements requirementState={passwordRequirements} />}
                         <InputField type='password' name='repeatPassword' id='repeatPassword' label='Powtórz hasło' />
                         <StyledGroupLabel>
                             Data urodzenia
@@ -130,11 +171,11 @@ const Registration = ({ closeRegistration, openLogin, theme }) => {
                         </InlineFields>
                         <StyledReCAPTCHA
                             sitekey='6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
-                            onChange={(value) => console.log(value)}
+                            onChange={(value) => console.log('CAPTCHA: ', value)}
                         />
                         <Button type='submit' disabled={isSubmitting}>Zarejestruj</Button>
-                        {/* <pre>{JSON.stringify(values, null, 2)}</pre>
-                        <pre>{JSON.stringify(errors, null, 2)}</pre> */}
+                        {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
+                        {/* <pre>{JSON.stringify(errors, null, 2)}</pre> */}
                         {/* <pre>{JSON.stringify(touched, null, 2)}</pre> */}
                     </Form>
                 )}

@@ -16,7 +16,7 @@ const StyledFormField = styled.div`
     flex: 0 0 auto;
 `;
 
-const FormField = ({ label, type, id, theme, ...props }) => {
+const FormField = ({ label, type, id, theme, setShowPasswordRequirements, ...props }) => {
     const [isFocused, setIsFocused] = useState(false);
     const [field, meta] = useField(props);
     const errorText = meta.error && meta.touched ? meta.error : "";
@@ -32,8 +32,18 @@ const FormField = ({ label, type, id, theme, ...props }) => {
     }
 
     let input = type === 'password' ?
-        <PasswordInput type={type} id={id} {...props} {...field} isError={isError} onBlur={(event) => handleOnBlur(event)} onFocus={handleOnFocus} />
-        : <Input type={type} id={id} {...props} {...field} isError={isError} onBlur={(event) => handleOnBlur(event)} onFocus={handleOnFocus} />
+        <PasswordInput type={type} id={id} {...props} {...field} isError={isError}
+            onBlur={(event) => {
+                handleOnBlur(event);
+                id === 'password' && setShowPasswordRequirements(false);
+            }}
+            onFocus={() => {
+                handleOnFocus();
+                id === 'password' && setShowPasswordRequirements(true);
+            }} />
+        : <Input type={type} id={id} {...props} {...field} isError={isError}
+            onBlur={(event) => handleOnBlur(event)}
+            onFocus={handleOnFocus} />
     return (
         <StyledFormField>
             <Label
@@ -46,6 +56,6 @@ const FormField = ({ label, type, id, theme, ...props }) => {
             {input}
             { isError && <ErrorMessage isAbsolute error={errorText} />}
         </StyledFormField>);
-}
+};
 
 export default FormField;
