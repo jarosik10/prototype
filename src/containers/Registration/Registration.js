@@ -14,7 +14,8 @@ import FormLink from '../../components/Form/FormLink/FormLink';
 import SelectField from '../../components/Form/SelectField/SelectField';
 import Select from '../../components/UI/Select/Select';
 import PasswordRequirements from '../../components/PasswordRequirements/PasswordRequirements';
-// import HelperWindow from '../HelperWindow/HelperWindow';
+import HelperWindow from '../../components/HelperWindow/HelperWindow';
+import Paragraph from '../../components/UI/Paragraph/Paragraph';
 
 const StyledReCAPTCHA = styled(ReCAPTCHA)`
     transform:scale(0.9);
@@ -150,9 +151,9 @@ const Registration = ({ closeRegistration, openLogin, theme }) => {
                         <InputField type='password' name='repeatPassword' id='repeatPassword' label='Powtórz hasło' />
                         <StyledGroupLabel>
                             Data urodzenia
-                            {/* <HelperWindow>
-                                <p>Potrzebujemy daty twoich urodzin, ponieważ niektóre produkty oferowane w naszym serwisie dostępne są od lat 16 lub 18.</p>
-                            </HelperWindow> */}
+                            <HelperWindow>
+                                <Paragraph>Potrzebujemy daty twoich urodzin, ponieważ niektóre produkty oferowane w naszym serwisie dostępne są od lat 16 lub 18.</Paragraph>
+                            </HelperWindow>
                         </StyledGroupLabel>
                         <InlineFields>
                             <SelectField type='select' name='birthDate.day' id='day' value=''>

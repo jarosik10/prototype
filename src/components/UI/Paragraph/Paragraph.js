@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Paragraph = styled.p`
     font-size: ${({isSmall, isBig}) => isSmall ? '12px' : isBig ? '22px' : '16px'};
     text-align: ${({isCentered}) => isCentered ? 'center' : 'left'};
-    font-weight: ${({isBold}) => isBold ? 'bold' : 'regular'};
+    font-weight: ${({isBold}) => isBold ? 'bold' : 'normal'};
     color: ${({ theme }) => theme.colors.darkGray};
 `;
 
