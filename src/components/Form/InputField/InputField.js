@@ -35,11 +35,11 @@ const FormField = ({ label, type, id, theme, setShowPasswordRequirements, ...pro
         <PasswordInput type={type} id={id} {...props} {...field} isError={isError}
             onBlur={(event) => {
                 handleOnBlur(event);
-                id === 'password' && setShowPasswordRequirements(false);
+                id === 'password' && setShowPasswordRequirements && setShowPasswordRequirements(false);
             }}
             onFocus={() => {
                 handleOnFocus();
-                id === 'password' && setShowPasswordRequirements(true);
+                id === 'password' && setShowPasswordRequirements && setShowPasswordRequirements(true);
             }} />
         : <Input type={type} id={id} {...props} {...field} isError={isError}
             onBlur={(event) => handleOnBlur(event)}

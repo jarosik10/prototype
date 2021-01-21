@@ -14,6 +14,12 @@ const Select = styled.select`
     padding: 0 8px 0 32px;
     font-size: 18px;
     }
+
+    option {
+        :first-of-type {
+            background-color: ${({theme}) => theme.colors.lightGray};
+        }
+    }
 `;
 
 export default Select;

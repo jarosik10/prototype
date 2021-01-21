@@ -12,6 +12,7 @@ const StyledWrapper = styled.div`
 
     ${({ theme }) => theme.media.tablet} {
         height: auto;
+        max-height: 95vh;
         width: auto;
         top: 50%;
         bottom: unset;
@@ -20,7 +21,7 @@ const StyledWrapper = styled.div`
         margin: auto;
         box-shadow: 0 0 6px 1px rgba(0, 0, 0, .3);
         border-radius: 35px;
-        overflow-y: initial;
+        overflow-x: hidden;
     }
 `;
 
@@ -32,7 +33,7 @@ const StyledContentContainer = styled.div`
   
     ${({ theme }) => theme.media.tablet} {
         padding: 70px 50px;
-        min-width: 550px;
+        min-width: 600px;
     }
 `;
 

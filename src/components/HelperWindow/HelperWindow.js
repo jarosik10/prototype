@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import styled, { withTheme } from 'styled-components';
 import { HelpCircle } from 'react-feather';
+import HelperContent from './HelperContent/HelperContent';
 
 const StyledWrapper = styled.div`
     position: relative;
@@ -17,62 +18,67 @@ const StyledButton = styled.button`
     }
 `;
 
-const HelperContent = styled.div`
-    display: block;
-    z-index: ${({ theme }) => theme.zindex.level9};
-    position: absolute;
-    background-color: ${({ theme }) => theme.colors.white};
-    border: 1px solid ${({ theme }) => theme.colors.lightGray};
-    border-radius: 12px;
-    box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.2);
-    padding: 0 8px;   
-    bottom: 120%;
-    width: 10em;
-    right: 16px;
-    border-bottom-right-radius: 0;
-
-    ${({ theme }) => theme.media.smallTablet} {
-        width: 12em;
-        left: 16px;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 12px;
-    }
-
-    ${({ theme }) => theme.media.tablet} {
-        left: 24px;
-        width: 17em;
-        border-bottom-left-radius: 0;
-    }
-`;
-
 const HelperWindow = ({ theme, children }) => {
     const [showWindow, setShowWindow] = useState(false);
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+    const [isSelecting, setIsSelecting] = useState(false);
+    const buttonRef = useRef(null);
 
+    let openWindowTimeout;
     let closeWindowTimeout;
 
     const setOpenWindowTimeout = () => {
-        setTimeout(() => setShowWindow(true), 400);
+        openWindowTimeout = setTimeout(() => {
+            setShowWindow(true);
+            setIsButtonDisabled(true);
+            setTimeout(() => {
+                setIsButtonDisabled(false);
+            }, 200)
+        }, 200);
     }
 
     const setCloseWindowTimeout = () => {
-        closeWindowTimeout = setTimeout(() => setShowWindow(false), 200);
-    }
-
-    const clearCloseWindowTimeout = () => {
-        clearTimeout(closeWindowTimeout);
+        if (!showWindow) {
+            clearTimeout(openWindowTimeout);
+        } else {
+            closeWindowTimeout = setTimeout(() => setShowWindow(false), 200);
+        }
     }
 
     const handleOnEnterHelperButton = () => {
         if (showWindow) {
-            clearCloseWindowTimeout();
+            clearTimeout(closeWindowTimeout);
         } else {
             setOpenWindowTimeout();
         }
     }
 
-    const handleToggleWindow = () => {
-        setShowWindow(prevState => !prevState);
+    const handleOnLeaveHelperContent = () => {
+        if (!isSelecting) {
+            setCloseWindowTimeout();
+        }
     }
+
+    const handleToggleWindow = () => {
+        !isButtonDisabled && setShowWindow(prevState => !prevState);
+    }
+
+    const handleMouseDownHelperContent = () => {
+        setIsSelecting(true);
+    }
+
+    const handleMouseUpHelperContent = (event) => {
+        event.stopPropagation();
+        setIsSelecting(false);
+    }
+
+    const handleMouseUpWindow = useCallback(() => {
+        if (isSelecting) {
+            setCloseWindowTimeout();
+            setIsSelecting(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isSelecting])
 
     return (
         <>
@@ -81,13 +87,18 @@ const HelperWindow = ({ theme, children }) => {
                     onMouseEnter={handleOnEnterHelperButton}
                     onMouseLeave={setCloseWindowTimeout}
                     onClick={handleToggleWindow}
-                    type='button'>
+                    type='button'
+                    ref={buttonRef}>
                     <HelpCircle color={showWindow ? theme.colors.black : theme.colors.darkGray} size={24} />
                 </StyledButton>
                 {showWindow &&
                     <HelperContent
-                        onMouseEnter={clearCloseWindowTimeout}
-                        onMouseLeave={setCloseWindowTimeout}>
+                        onMouseEnter={() => clearTimeout(closeWindowTimeout)}
+                        onMouseLeave={handleOnLeaveHelperContent}
+                        onMouseDown={handleMouseDownHelperContent}
+                        onMouseUp={handleMouseUpHelperContent}
+                        handleMouseUpWindow={handleMouseUpWindow}
+                    >
                         {children}
                     </HelperContent>}
             </StyledWrapper>

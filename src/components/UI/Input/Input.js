@@ -8,7 +8,10 @@ const StyledInput = styled.input`
     box-shadow: ${({isError}) => isError ? '0 0 3px 0px #E51A1A' : ''};
     padding: 0 32px;
     font-size: 18px;
-    outline: none;
+    
+    :focus {
+        outline: none;
+    }
 `;
 
 const Input = forwardRef((props, ref) => {

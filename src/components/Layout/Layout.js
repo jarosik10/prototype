@@ -15,6 +15,21 @@ body {
   padding: 0;
   font-family: "Arial", sans-serif;
 }
+
+a,
+area,
+input,
+select,
+textarea,
+button,
+iframe,
+[tabindex],
+[contentEditable=true]
+{
+  :focus {
+    outline: 1px solid ${({theme}) => theme.colors.blue}
+  }
+}
 `;
 
 const Layout = ({ children }) => (

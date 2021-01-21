@@ -144,11 +144,11 @@ const Registration = ({ closeRegistration, openLogin, theme }) => {
             >
                 {({ handleSubmit, errors, values, isSubmitting, touched }) => (
                     <Form onSubmit={handleSubmit}>
-                        <InputField type='text' name='login' id='login' label='Login' />
-                        <InputField type='text' name='email' id='email' label='Email' />
+                        <InputField setShowPasswordRequirements={setShowPasswordRequirements} type='text' name='login' id='login' label='Login' />
+                        <InputField setShowPasswordRequirements={setShowPasswordRequirements} type='text' name='email' id='email' label='Email' />
                         <InputField setShowPasswordRequirements={setShowPasswordRequirements} type='password' name='password' id='password' label='Hasło' />
                         {showPasswordRequirements && <PasswordRequirements requirementState={passwordRequirements} />}
-                        <InputField type='password' name='repeatPassword' id='repeatPassword' label='Powtórz hasło' />
+                        <InputField setShowPasswordRequirements={setShowPasswordRequirements} type='password' name='repeatPassword' id='repeatPassword' label='Powtórz hasło' />
                         <StyledGroupLabel>
                             Data urodzenia
                             <HelperWindow>
@@ -157,15 +157,15 @@ const Registration = ({ closeRegistration, openLogin, theme }) => {
                         </StyledGroupLabel>
                         <InlineFields>
                             <SelectField type='select' name='birthDate.day' id='day' value=''>
-                                <option value='' disabled>Dzień</option>
+                                <option value='' disabled hidden>Dzień</option>
                                 {daySelectOptions}
                             </SelectField>
                             <SelectField type='select' name='birthDate.month' id='month' value=''>
-                                <option value='' disabled>Miesiąc</option>
+                                <option value='' disabled hidden>Miesiąc</option>
                                 {monthSelectOptions}
                             </SelectField>
                             <SelectField type='select' name='birthDate.year' id='year' value=''>
-                                <option value='' disabled>Rok</option>
+                                <option value='' disabled hidden>Rok</option>
                                 {yearSelectOptions}
                             </SelectField>
                             {touched.birthDate && touched.birthDate.day && touched.birthDate.month && touched.birthDate.year && !!errors.birthDate && <ErrorMessage isAbsolute error={errors.birthDate} />}

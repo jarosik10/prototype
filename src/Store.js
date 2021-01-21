@@ -7,7 +7,6 @@ const Store = ({ children }) => {
     useEffect(() => {
         const handleResize = () => {
           setWindowDimension(window.innerWidth)
-          console.log(window.innerWidth)
         }
     
         const debouncedHandleResize = debounce(handleResize, 70, { 'leading': false, 'trailing': true });
